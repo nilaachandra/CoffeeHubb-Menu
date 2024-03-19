@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`py-4 px-8 w-full flex justify-between items-center ${showCart ? 'overlay' : ''}`}>
+    <div className='py-4 px-8 w-full flex justify-between items-center'>
       <h1 className='poppins-bold text-[2vw]'>Menu</h1>
       
       <div className="icons relative" onClick={toggleCart}>
@@ -22,7 +22,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      {showCart && <CartComponent />}
+      <div className={`cart-overlay ${showCart ? 'show' : ''}`} onClick={toggleCart}></div>
+      
+      <div className={`cart-component-wrapper ${showCart ? 'show' : ''}`}>
+        <CartComponent />
+      </div>
     </div>
   );
 }

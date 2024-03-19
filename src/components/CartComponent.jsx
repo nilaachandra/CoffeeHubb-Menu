@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { useCart } from '../context/CartContext';
 
 const CartComponent = () => {
+  const { cart } = useCart();
+
   return (
-    <div className='border border-red-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>CartComponent</div>
-  )
+    <div className="cart-component">
+      <h2>Cart</h2>
+      <ul>
+        {cart.map((item, index) => (
+          <li key={index}>{item.itemName}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default CartComponent
+export default CartComponent;
