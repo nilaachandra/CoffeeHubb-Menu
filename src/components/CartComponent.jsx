@@ -6,10 +6,10 @@ const CartComponent = () => {
   const { cart, setCart } = useCart();
   const totalAmount = cart.reduce((acc, item) => acc + item.totalPrice, 0);
 
-  const removeFromCart = (indexToRemove) => {
-    const updatedCart = cart.filter((item, index) => index !== indexToRemove);
+  const handleDeleteItem = (indexToDelete) => {
+    const updatedCart = cart.filter(item => item.index !== indexToDelete);
     setCart(updatedCart);
-};
+  }
   
   return (
     <div className="cart-component min-h-[20rem] w-[30rem]">
@@ -34,7 +34,7 @@ const CartComponent = () => {
               <td>
                 <RiDeleteBin6Fill
                   size={24}
-                  onClick={() => removeFromCart(order.index)}
+                  onClick={() => handleDeleteItem(order.index)}
                   style={{ cursor: 'pointer' }}
                 />
               </td>
