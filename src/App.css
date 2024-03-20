@@ -121,18 +121,18 @@ table td {
   height: 100%;
   opacity: 0;
   transition: all 0.3s ease-in-out;
-  pointer-events: none; /* Prevents clicks on the overlay when it's hidden */
+  pointer-events: none; 
 }
 
 .cart-overlay.show {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  pointer-events: auto; /* Allows clicks on the overlay when it's shown */
+  background-color: rgba(0, 0, 0, 0.5); 
+  pointer-events: auto; 
 }
 
 .cart-component.show {
   opacity: 1;
-  pointer-events: auto; /* Allows clicks on the component when it's shown */
+  pointer-events: auto; 
 }
 .cart-component-wrapper {
   position: fixed;
@@ -144,7 +144,7 @@ table td {
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transition: opacity 0.3s ease-in-out;
 }
 
@@ -152,3 +152,4 @@ table td {
   opacity: 1;
   pointer-events: auto;
 }
+
