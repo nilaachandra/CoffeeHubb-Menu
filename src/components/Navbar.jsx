@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <div className='py-4 px-8 w-full flex justify-between items-center'>
-      <h1 className='poppins-bold text-[2vw]'>Menu</h1>
+      <h1 className='poppins-bold text-2xl lg:text-[2vw]'>Menu</h1>
       
       <div className="icons relative" onClick={toggleCart}>
         <RiDrinks2Fill size={50}/>
