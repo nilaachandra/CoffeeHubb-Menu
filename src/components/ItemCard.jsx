@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { RiDrinksFill } from "@remixicon/react";
-import menuItems from '../menuDB'; 
+import menuItems from "../menuDB";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,11 +16,13 @@ const ItemCard = ({ menuItem }) => {
       setItemCount((prevItemCount) => prevItemCount - 1);
       setItemAmt((prevItemAmt) => prevItemAmt - menuItem.price);
     }
+    itemCount === 0 ? setItemCount(1) : null;
   };
 
   const incrementItemCount = () => {
     setItemCount((prevItemCount) => prevItemCount + 1);
     setItemAmt((prevItemAmt) => prevItemAmt + menuItem.price);
+    itemCount === 10 ? setItemCount(10) : null;
   };
 
   const handleAddToCart = () => {
@@ -32,12 +34,15 @@ const ItemCard = ({ menuItem }) => {
     };
     addToCart(cartItem);
 
-    toast.success(`${menuItem.itemName} added to cart`, { position:'top-right', autoClose: 3000, transition: Bounce });
+    toast.success(`${menuItem.itemName} added to cart`, {
+      position: "top-right",
+      autoClose: 3000,
+      transition: Bounce,
+    });
   };
 
   return (
     <div className="bg-white shadow-md rounded-md p-4 mb-4 flex items-center">
-      
       <div className="flex-shrink-0 mr-4">
         <img
           src={menuItem.image}
@@ -69,7 +74,7 @@ const ItemCard = ({ menuItem }) => {
           onClick={handleAddToCart}
           className="mt-2 bg-[#451e0a] hover:bg-[#503b31] text-white font-bold py-2 px-4 rounded-md"
         >
-          <RiDrinksFill size={30} color="white"/>
+          <RiDrinksFill size={30} color="white" />
         </button>
       </div>
     </div>

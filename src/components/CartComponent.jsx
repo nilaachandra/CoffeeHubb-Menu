@@ -1,12 +1,11 @@
 // CartComponent.jsx
-import React, { useState } from 'react';
-import { RiDeleteBin6Fill } from '@remixicon/react';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-import { useCart } from '../context/CartContext';
+import React, { useState } from "react";
+import { RiDeleteBin6Fill } from "@remixicon/react";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+import { useCart } from "../context/CartContext";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const CartComponent = () => {
   const [orderConfirmation, setOrderConfirmation] = useState(false);
@@ -15,21 +14,32 @@ const CartComponent = () => {
 
   const handleDeleteItem = (indexToDelete) => {
     removeFromCart(indexToDelete);
-    toast.error(`Removed from cart`, { position:'top-right', autoClose: 3000, transition: Bounce });
-
+    toast.error(`Removed from cart`, {
+      position: "top-right",
+      autoClose: 3000,
+      transition: Bounce,
+    });
   };
 
   const handleConfirmOrder = () => {
-    setOrderConfirmation(true);
-    toast.success(`Items Ordered`, { position:'top-right', autoClose: 4000, transition: Bounce });
-
+    cart.length === 0
+      ? toast.error(`Please Add Your Orders`, {
+          position: "top-right",
+          autoClose: 4000,
+          transition: Bounce,
+        }) && setOrderConfirmation(false)
+      : toast.success(`Items Ordered`, {
+          position: "top-right",
+          autoClose: 4000,
+          transition: Bounce,
+        }) && setOrderConfirmation(true);
   };
 
   const handlePrintReceipt = () => {
     const doc = new jsPDF();
-    doc.text('Receipt', 10, 10);
+    doc.text("Receipt", 10, 10);
 
-    const columns = ['Sl No.', 'Item Name', 'Quantity', 'Total Price (Rs)'];
+    const columns = ["Sl No.", "Item Name", "Quantity", "Total Price (Rs)"];
     const data = cart.map((item, index) => [
       index + 1,
       item.itemName,
@@ -42,19 +52,25 @@ const CartComponent = () => {
       startY: 20, // Start y-coordinate for the table
       head: [columns],
       body: data,
-      theme: 'plain', // Optional theme for the table
+      theme: "plain", // Optional theme for the table
     });
 
     // Add total amount
-    doc.text(`Total Amount: Rs ${totalAmount}`, 14, doc.lastAutoTable.finalY + 10);
+    doc.text(
+      `Total Amount: Rs ${totalAmount}`,
+      14,
+      doc.lastAutoTable.finalY + 10
+    );
 
     // Save the PDF
-    doc.save('receipt.pdf');
+    doc.save("receipt.pdf");
   };
 
   return (
     <div className="cart-component min-h-[20rem] w-full md:w-[30rem] lg:max-w-[30rem] mx-auto">
-      <h2 className="text-[1.4rem] leading-2 poppins-regular font-bold">Your Orders</h2>
+      <h2 className="text-[1.4rem] leading-2 poppins-regular font-bold">
+        Your Orders
+      </h2>
       <table className="w-full text-[1.4rem]">
         <thead>
           <tr>
@@ -72,11 +88,11 @@ const CartComponent = () => {
               <td>{order.itemName}</td>
               <td>{order.quantity}</td>
               <td>Rs {order.totalPrice}</td>
-              <td className='text-right'>
+              <td className="text-right">
                 <RiDeleteBin6Fill
                   size={24}
                   onClick={() => handleDeleteItem(index)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 />
               </td>
             </tr>
@@ -88,11 +104,17 @@ const CartComponent = () => {
         <span className="mr-14">Rs {totalAmount}</span>
       </div>
       <div className="conOrder mt-4">
-        <button onClick={handleConfirmOrder} className="w-full bg-[#4a1c06] py-2 rounded-md text-[1.4rem] font-bold text-white">
-          {orderConfirmation ? 'Ordered' : 'Confirm Order'}
+        <button
+          onClick={handleConfirmOrder}
+          className="w-full bg-[#4a1c06] py-2 rounded-md text-[1.4rem] font-bold text-white"
+        >
+          {orderConfirmation ? "Ordered" : "Confirm Order"}
         </button>
         {orderConfirmation ? (
-          <button onClick={handlePrintReceipt} className="w-full bg-[#4a1c06] py-2 rounded-md text-[1.4rem] font-bold text-white mt-2">
+          <button
+            onClick={handlePrintReceipt}
+            className="w-full bg-[#4a1c06] py-2 rounded-md text-[1.4rem] font-bold text-white mt-2"
+          >
             Print Receipt
           </button>
         ) : null}
