@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className='py-4 px-8 w-full flex justify-between items-center'>
+    <div className='py-4 px-8 w-full flex justify-between items-center fixed bg-white'>
       <h1 className='poppins-bold text-2xl lg:text-[2vw]'>Menu</h1>
       
       <div className="icons relative" onClick={toggleCart}>

@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { RiDrinksFill } from "@remixicon/react";
-import menuItems from '../menuDB'; // Import your menu items data
+import menuItems from '../menuDB'; 
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ItemCard = ({ menuItem }) => {
   const { addToCart } = useCart();
@@ -29,10 +31,13 @@ const ItemCard = ({ menuItem }) => {
       image: menuItem.image,
     };
     addToCart(cartItem);
+
+    toast.success(`${menuItem.itemName} added to cart`, { position:'top-right', autoClose: 3000, transition: Bounce });
   };
 
   return (
     <div className="bg-white shadow-md rounded-md p-4 mb-4 flex items-center">
+      
       <div className="flex-shrink-0 mr-4">
         <img
           src={menuItem.image}

@@ -4,6 +4,9 @@ import { RiDeleteBin6Fill } from '@remixicon/react';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { useCart } from '../context/CartContext';
+import { Bounce, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const CartComponent = () => {
   const [orderConfirmation, setOrderConfirmation] = useState(false);
@@ -12,10 +15,14 @@ const CartComponent = () => {
 
   const handleDeleteItem = (indexToDelete) => {
     removeFromCart(indexToDelete);
+    toast.error(`Removed from cart`, { position:'top-right', autoClose: 3000, transition: Bounce });
+
   };
 
   const handleConfirmOrder = () => {
     setOrderConfirmation(true);
+    toast.success(`Items Ordered`, { position:'top-right', autoClose: 4000, transition: Bounce });
+
   };
 
   const handlePrintReceipt = () => {
